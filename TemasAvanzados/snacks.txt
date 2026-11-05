@@ -1,0 +1,4 @@
+1,Papas,70.0
+2,Coca-cola,50.0
+3,Sandwich,90.0
+4,Torta,110.0
