@@ -13,7 +13,7 @@ import java.awt.*;
 import java.util.Scanner;
 
 
-@SpringBootApplication
+//@SpringBootApplication
 public class ZonaFitApplication implements CommandLineRunner {
 
 	// Inyectar una dependencia
