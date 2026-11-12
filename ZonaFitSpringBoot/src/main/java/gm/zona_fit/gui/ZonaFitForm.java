@@ -42,6 +42,8 @@ public class ZonaFitForm extends JFrame {
                 cargarClienteSeleccionado();
             }
         });
+        eliminarButton.addActionListener(e -> eliminarCliente());
+        limpiarButton.addActionListener(e -> limpiarFormulario());
     }
 
     private void iniciarForm(){
@@ -55,10 +57,21 @@ public class ZonaFitForm extends JFrame {
         // TODO: place custom component creation code here
         // Método especial que se ejecuta antes del constructor
         //                                       cantidad de datos, cantidad de columnas
-        this.tablaModeloClientes = new DefaultTableModel(0, 4);
+        // this.tablaModeloClientes = new DefaultTableModel(0, 4);
+
+        // Se sobreescribe el metodo que permite la edicion de las celdas
+        this.tablaModeloClientes = new DefaultTableModel(0, 4){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         String[] cabeceros = {"Id", "Nombre", "Apellido", "Membresia"};
         this.tablaModeloClientes.setColumnIdentifiers(cabeceros);
         this.clientesTabla = new JTable(tablaModeloClientes);
+
+        // Restringir la seleccion de la tabla a un solo registro
+        this.clientesTabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Cargar el listado de los clientes
         listarClientes();
@@ -131,6 +144,28 @@ public class ZonaFitForm extends JFrame {
             this.nombreTexto.setText(nombre);
             this.apellidoTexto.setText(apellido);
             this.membresiaTexto.setText(membresia);
+        }
+    }
+
+    private void eliminarCliente(){
+        var renglon = clientesTabla.getSelectedRow();
+
+        if (renglon != -1){
+            // Recuperar los valores del formulario
+            var id = clientesTabla.getModel().getValueAt(renglon, 0).toString();
+            this.idCliente = Integer.parseInt(id);
+            // Crear el objeto de cliente
+            var cliente = new Cliente();
+
+            cliente.setId(this.idCliente);
+            // Eliminar el cliente
+            this.clienteServicio.eliminarCliente(cliente);
+            mostrarMensaje("Cliente con id " + this.idCliente + " eliminado");
+
+            limpiarFormulario();
+            listarClientes();
+        } else {
+            mostrarMensaje("Porfavor, selecciona un cliente a eliminar");
         }
     }
 
