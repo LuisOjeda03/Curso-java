@@ -1,0 +1,15 @@
+/* Definicion de los estilos CSS */
+body{
+    background-color: black;
+    color: white;
+}
+
+/* Estilo de los enlaces */
+a{
+    color: hotpink;
+}
+
+/* Cuando nos posicionamos arriba del enlace */
+a:hover{
+    color: yellow;
+}
