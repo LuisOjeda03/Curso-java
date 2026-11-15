@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-@Component
+//@Component
 public class ZonaFitForm extends JFrame {
     private JPanel panelPrincipal;
     private JTable clientesTabla;
